@@ -24,16 +24,16 @@ trait HasStatuses
         return $this->latestStatus();
     }
 
-    public function setStatus(string $name, ?string $reason = null): self
+    public function setStatus(string $name, ?string $reason = null, ?int $user_id = null): self
     {
-        if (! $this->isValidStatus($name, $reason)) {
+        if (!$this->isValidStatus($name, $reason, $user_id)) {
             throw InvalidStatus::create($name);
         }
 
         return $this->forceSetStatus($name, $reason);
     }
 
-    public function isValidStatus(string $name, ?string $reason = null): bool
+    public function isValidStatus(string $name, ?string $reason = null, ?int $user_id = null): bool
     {
         return true;
     }
@@ -129,13 +129,14 @@ trait HasStatuses
         return (string) $this->latestStatus();
     }
 
-    public function forceSetStatus(string $name, ?string $reason = null): self
+    public function forceSetStatus(string $name, ?string $reason = null, ?int $user_id = null): self
     {
         $oldStatus = $this->latestStatus();
 
         $newStatus = $this->statuses()->create([
             'name' => $name,
             'reason' => $reason,
+            'user_id' => $user_id
         ]);
 
         event(new StatusUpdated($oldStatus, $newStatus, $this));
