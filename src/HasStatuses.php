@@ -30,7 +30,7 @@ trait HasStatuses
             throw InvalidStatus::create($name);
         }
 
-        return $this->forceSetStatus($name, $reason);
+        return $this->forceSetStatus($name, $reason, $user_id);
     }
 
     public function isValidStatus(string $name, ?string $reason = null, ?int $user_id = null): bool
