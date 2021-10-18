@@ -1,5 +1,5 @@
 {
-    "name": "jospy/laravel-model-status",
+    "name": "spatie/laravel-model-status",
     "description": "A package to enable assigning statuses to Eloquent Models",
     "keywords": [
         "spatie",
