@@ -26,7 +26,7 @@ trait HasStatuses
 
     public function setStatus(string $name, ?string $reason = null, ?int $user_id = null): self
     {
-        if (!$this->isValidStatus($name, $reason, $user_id)) {
+        if (! $this->isValidStatus($name, $reason, $user_id)) {
             throw InvalidStatus::create($name);
         }
 
@@ -136,7 +136,7 @@ trait HasStatuses
         $newStatus = $this->statuses()->create([
             'name' => $name,
             'reason' => $reason,
-            'user_id' => $user_id
+            'user_id' => $user_id,
         ]);
 
         event(new StatusUpdated($oldStatus, $newStatus, $this));

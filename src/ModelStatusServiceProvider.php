@@ -13,7 +13,7 @@ class ModelStatusServiceProvider extends ServiceProvider
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/');
         }
 
-        if (!class_exists('CreateStatusesTable')) {
+        if (! class_exists('CreateStatusesTable')) {
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
@@ -37,7 +37,7 @@ class ModelStatusServiceProvider extends ServiceProvider
     {
         $modelClassName = config('model-status.status_model');
 
-        if (!is_a($modelClassName, Status::class, true)) {
+        if (! is_a($modelClassName, Status::class, true)) {
             throw InvalidStatusModel::create($modelClassName);
         }
     }
